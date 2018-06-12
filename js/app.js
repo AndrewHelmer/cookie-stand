@@ -18,20 +18,20 @@ var time =['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3p
 //The Cities
 var pike = {
   minP : 23,
-  maxP :65,
+  maxP : 65,
   avgP: 6.3,
 };
 
 var seaTac= {
   minP: 3,
   maxP: 24,
-  avgP:1.2,
+  avgP: 1.2,
 };
 
 var seaC= {
   minP: 11,
   maxP: 38,
-  avgP:3.7,
+  avgP: 3.7,
 };
 
 var capHill={
@@ -45,45 +45,42 @@ var alki={
   maxP: 16,
   avgP: 4.6,
 };
-
+// Pike
 function pikeCustomers(min, max) {
   min = Math.ceil(pike.minP);
   max = Math.floor(pike.maxP);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 function pikeCookies(){
   return Math.floor(pikeCustomers() * pike.avgP);
 }
 
 
-
+// Seattle Tacoma
 function seaTacCustomers(min, max) {
   min = Math.ceil(seaTac.minP);
   max = Math.floor(seaTac.maxP);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 function seaTaccookies(){
   return Math.floor(seaTacCustomers() * seaTac.avgP);
 }
 
-
+// Seattle Center
 function seaCCustomers(min, max) {
   min = Math.ceil(seaC.minP);
   max = Math.floor(seaC.maxP);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 function seaCCookies(){
   return Math.floor(seaCCustomers() * seaC.avgP);
 }
 
-
-
-
 // capitol hill functions
 function capHillCustomers(min, max) {
   min = Math.ceil(capHill.minP);
   max = Math.floor(capHill.maxP);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 function capHillCookies(){
   return Math.floor(capHillCustomers() * capHill.avgP);
@@ -93,38 +90,35 @@ function capHillCookies(){
 function alkiCustomers(min, max) {
   min = Math.ceil(alki.minP);
   max = Math.floor(alki.maxP);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 function alkiCookies(){
   return Math.floor(alkiCustomers() * alki.avgP);
 }
 
-
+// time functions
 function pikeTime() {
   var firstAndPike = document.getElementById('1stAndPike');
+  var total = 0;
   for(var i = 0; i < time.length; i++){
-  // 1. make my list items -> document.createElement
     var pikeEl = document.createElement('li');
-
-    // 2. use the miles to give the list items some content -> .textContent
-    pikeEl.textContent = '1st and Pike had' + pikeCookies + 'at '+ this.time[i] + '.';
-
-    // 3. display the list items in the browser -> interact with the DOM -> parentElement.appendChild(childElement)
+    var randomNum = pikeCookies();
+    pikeEl.textContent = '1st and Pike had ' + pikeCookies() + ' cookies at '+ time[i] + '.';
+    total += randomNum;
     firstAndPike.appendChild(pikeEl);
   }
+  var totalCookies = document.createElement('li');
+  totalCookies.textContent = 'Total number of cookies at 1st and Pike is ' + total;
+  firstAndPike.appendChild(totalCookies);
 }
 
 
 
-//running functions
-// pikeCookies();
-pikeCustomers();
-// seaTacCustomers();
-// seaTaccookies();
-// seaCCustomers();
-// seaCCookies();
-// capHillCustomers();
-// capHillCookies();
-// alkiCustomers();
-// alkiCookies();
+//running functions for cookies total
+pikeCookies();
+seaTaccookies();
+seaCCookies();
+capHillCookies();
+alkiCookies();
+// time functions and DOM element
 pikeTime();
