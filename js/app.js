@@ -1,6 +1,10 @@
 'use strict';
 
 var timeTable =['6am-7am', '7am-8am', '8am-9am', '9am-10am', '10am-11am', '11am-12pm', '12pm-1pm', '1pm-2pm', '2pm-3pm', '3pm-4pm', '4pm-5pm', '5pm-6pm', '6pm-7pm','7pm-8pm',];
+var allCities=[];
+var cookieBusiness = document.getElementById('cookieData');
+
+
 function City(storeName,minP,maxP,avgP) {
   this.storeName=storeName;
   this.minP = minP;
@@ -10,6 +14,7 @@ function City(storeName,minP,maxP,avgP) {
   this.customers();
   this.cookiesPerHour = [];
   this.cookies();
+  allCities.push(this);
 }
 City.prototype.customers = function(){
   for (var i =0; i < timeTable.length; i++ ){
@@ -23,6 +28,43 @@ City.prototype.cookies = function() {
     this.cookiesPerHour.push(Math.round(this.customersPerHour[i] * this.avgP));
   }
 };
+
+City.prototype.renderRow = function(){
+  var trElement=document.getElementById('tr');
+  var tdElement=document.getElementById('td');
+    // give td content (name, then color, then breed, the nickname) <- eventually do it in a for loop
+    tdElement.textContent = this.storeName;
+  
+    // append td to tr
+    trElement.appendChild(tdElement);
+    
+    tdElement = document.createElement('td');
+    tdElement.textContent = this.minP;
+    trElement.appendChild(tdElement);
+    
+    tdElement = document.createElement('td');
+    tdElement.textContent = this.maxP;
+    trElement.appendChild(tdElement);
+    
+    tdElement = document.createElement('td');
+    tdElement.textContent = this.avgP;
+    trElement.appendChild(tdElement);
+
+    tdElement = document.createElement('td');
+    tdElement.textContent = this.customersPerHour;
+    trElement.appendChild(tdElement);
+
+    tdElement = document.createElement('td');
+    tdElement.textContent = this.cookiesPerHour;
+    trElement.appendChild(tdElement);
+
+
+    
+    // append tr to table
+    cookieBusiness.appendChild(trElement);
+  };
+
+}
 
 
 
