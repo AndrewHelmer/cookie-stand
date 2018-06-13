@@ -32,44 +32,58 @@ City.prototype.cookies = function() {
 City.prototype.renderRow = function(){
   var trElement=document.getElementById('tr');
   var tdElement=document.getElementById('td');
-    // give td content (name, then color, then breed, the nickname) <- eventually do it in a for loop
-    tdElement.textContent = this.storeName;
-  
-    // append td to tr
-    trElement.appendChild(tdElement);
-    
-    tdElement = document.createElement('td');
-    tdElement.textContent = this.minP;
-    trElement.appendChild(tdElement);
-    
-    tdElement = document.createElement('td');
-    tdElement.textContent = this.maxP;
-    trElement.appendChild(tdElement);
-    
-    tdElement = document.createElement('td');
-    tdElement.textContent = this.avgP;
-    trElement.appendChild(tdElement);
+  tdElement.textContent = City.this.storeName;
 
-    tdElement = document.createElement('td');
-    tdElement.textContent = this.customersPerHour;
-    trElement.appendChild(tdElement);
+  trElement.appendChild(tdElement);
 
-    tdElement = document.createElement('td');
-    tdElement.textContent = this.cookiesPerHour;
-    trElement.appendChild(tdElement);
+  tdElement = document.createElement('td');
+  tdElement.textContent = City.this.minP;
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement.textContent = City.this.maxP;
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement.textContent = City.this.avgP;
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement.textContent = City.this.customersPerHour;
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement.textContent = City.this.cookiesPerHour;
+  trElement.appendChild(tdElement);
 
 
-    
-    // append tr to table
-    cookieBusiness.appendChild(trElement);
+
+  // append tr to table
+  cookieBusiness.appendChild(trElement);
+
+
+};
+City.renderHeader = function() {
+  // create a row
+  var timesRow = document.createElement('tr');
+
+  var timeTable =['6am-7am', '7am-8am', '8am-9am', '9am-10am', '10am-11am', '11am-12pm', '12pm-1pm', '1pm-2pm', '2pm-3pm', '3pm-4pm', '4pm-5pm', '5pm-6pm', '6pm-7pm','7pm-8pm',];
+
+  for(var i=0; i < timeTable.length; i++) {
+    var timeElement = document.createElement('th');
+    timeElement.textContent = i;
+    timesRow.appendChild(timeElement);
+  }
+  City.renderAllCities = function() {
+    for(var i in allCities) {
+      allCities[i].renderRow();
+    }
   };
-
-}
-
+};
 
 
-
-
+City.renderHeader();
+City.renderAllCities();
 
 
 var pike = new City('1st and Pike',23,65,6.3);
