@@ -5,6 +5,7 @@ var allCities=[];
 var totalAmountEachHour=[];
 var totalAmountForAllCities = [];
 var cookieBusiness = document.getElementById('cookieData');
+var cookieForm = document.getElementById('The-cookie-form');
 
 // object constructor
 function City(storeName,minP,maxP,avgP) {
@@ -93,10 +94,11 @@ City.prototype.renderRow = function(){
   tdElement = document.createElement('td');
   tdElement.textContent = this.totalCookies;
   trElement.appendChild(tdElement);
-  //  using the dom to put it on html page
 
+  //  using the dom to put it on html page
   cookieBusiness.appendChild(trElement);
 };
+
 
 
 
@@ -118,9 +120,7 @@ City.renderHeader = function(){
 
 City.renderFooter = function (){
   var footerRow = document.createElement('tr');
-  // cookieBusiness.appendChild(footerRow);
-  // var totalsRow = document.createElement('tfoot');
-  // footerRow.appendChild(totalsRow);
+
   var totalsNameOnBar = document.createElement('th');
   totalsNameOnBar.textContent = 'Totals';
   footerRow.appendChild(totalsNameOnBar);
@@ -146,13 +146,32 @@ City.renderAllCities = function() {
     allCities[i].renderRow();
   }
 };
+// event function
+City.addNewCity = function(event) {
+  event.preventDefault();
+  var nextCity = event.target.newStoreName.value;
+  var newMinimumPeople = parseInt(event.target.newMinP.value);
+  var newMaximumPeople = parseInt(event.target.newMaxP.value);
+  var newAverageCookies = parseInt (event.target.newAvgP.value);
+
+  new City(nextCity, newMinimumPeople, newMaximumPeople, newAverageCookies);
+  cookieBusiness.textContent = '';
+
+
+  City.renderHeader();
+  City.renderAllCities();
+  eachLocationsTotalCookies();
+  everyOneOfThoseCookies();
+  City.renderFooter();
+};
 
 // city variables
-var pike = new City('1st and Pike',23,65,6.3);
-var seaTac = new City('SeaTac Airport',3,24,1.2);
-var seaC = new City ('Seattle Center',11,38,2.3);
-var capHill = new City ('Capitol Hill',20,38,2.3);
-var alki = new City ('Alki',2,16,4.6);
+var pike = new City('1st and Pike', 23, 65, 6.3);
+var seaTac = new City('SeaTac Airport', 3, 24, 1.2);
+var seaC = new City ('Seattle Center', 11, 38, 2.3);
+var capHill = new City ('Capitol Hill', 20, 38, 2.3);
+var alki = new City ('Alki', 2, 16, 4.6);
+cookieForm.addEventListener('submit', City.addNewCity);
 
 // running functions
 City.renderHeader();
