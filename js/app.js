@@ -158,7 +158,7 @@ City.addNewCity = function(event) {
   totalAmountEachHour = [];
   new City(nextCity, newMinimumPeople, newMaximumPeople, newAverageCookies);
   cookieBusiness.textContent = '';
-  
+
   City.renderHeader();
   City.renderAllCities();
   eachLocationsTotalCookies();
