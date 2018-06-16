@@ -3,7 +3,7 @@
 var timeTable =['6am-7am', '7am-8am', '8am-9am', '9am-10am', '10am-11am', '11am-12pm', '12pm-1pm', '1pm-2pm', '2pm-3pm', '3pm-4pm', '4pm-5pm', '5pm-6pm', '6pm-7pm','7pm-8pm',];
 var allCities=[];
 var totalAmountEachHour=[];
-var totalAmountForAllCities = [];
+// var totalAmountForAllCities = [];
 var cookieBusiness = document.getElementById('cookieData');
 var cookieForm = document.getElementById('The-cookie-form');
 
@@ -62,12 +62,13 @@ var eachLocationsTotalCookies = function (){
 };
 
 var everyOneOfThoseCookies = function(){
-  var CookiesForAll = 0;
+  var cookiesForAll = 0;
   for (var i = 0; i < totalAmountEachHour.length ; i++){
 
-    CookiesForAll += totalAmountEachHour[i];
+    cookiesForAll += totalAmountEachHour[i];
   }
-  totalAmountForAllCities.push(CookiesForAll);
+  // totalAmountForAllCities.push(cookiesForAll);
+  return cookiesForAll;
 };
 
 
@@ -132,7 +133,8 @@ City.renderFooter = function (){
   }
 
   var theLastBox = document.createElement('td');
-  theLastBox.textContent = totalAmountForAllCities[0];
+  // theLastBox.textContent = totalAmountForAllCities[0];
+  theLastBox.textContent = everyOneOfThoseCookies();
   footerRow.appendChild(theLastBox);
 
 
@@ -153,11 +155,10 @@ City.addNewCity = function(event) {
   var newMinimumPeople = parseInt(event.target.newMinP.value);
   var newMaximumPeople = parseInt(event.target.newMaxP.value);
   var newAverageCookies = parseInt (event.target.newAvgP.value);
-
+  totalAmountEachHour = [];
   new City(nextCity, newMinimumPeople, newMaximumPeople, newAverageCookies);
   cookieBusiness.textContent = '';
-
-
+  
   City.renderHeader();
   City.renderAllCities();
   eachLocationsTotalCookies();
@@ -195,4 +196,5 @@ console.log('-------------------------');
 console.log(alki);
 console.log(allCities);
 // console.log(theCompleteTotal());
-console.log(totalAmountForAllCities);
+// console.log(totalAmountForAllCities);
+// console.log(cookiesForAll);
