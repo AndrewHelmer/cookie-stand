@@ -3,8 +3,8 @@
 var timeTable =['6am-7am', '7am-8am', '8am-9am', '9am-10am', '10am-11am', '11am-12pm', '12pm-1pm', '1pm-2pm', '2pm-3pm', '3pm-4pm', '4pm-5pm', '5pm-6pm', '6pm-7pm','7pm-8pm',];
 var allCities=[];
 var totalAmountEachHour=[];
-var totalAmountForAllCities = [];
 var cookieBusiness = document.getElementById('cookieData');
+var cookieForm = document.getElementById('The-cookie-form');
 
 // object constructor
 function City(storeName,minP,maxP,avgP) {
@@ -61,12 +61,13 @@ var eachLocationsTotalCookies = function (){
 };
 
 var everyOneOfThoseCookies = function(){
-  var CookiesForAll = 0;
+  var cookiesForAll = 0;
   for (var i = 0; i < totalAmountEachHour.length ; i++){
 
-    CookiesForAll += totalAmountEachHour[i];
+    cookiesForAll += totalAmountEachHour[i];
   }
-  totalAmountForAllCities.push(CookiesForAll);
+
+  return cookiesForAll;
 };
 
 
@@ -93,10 +94,11 @@ City.prototype.renderRow = function(){
   tdElement = document.createElement('td');
   tdElement.textContent = this.totalCookies;
   trElement.appendChild(tdElement);
-  //  using the dom to put it on html page
 
+  //  using the dom to put it on html page
   cookieBusiness.appendChild(trElement);
 };
+
 
 
 
@@ -118,9 +120,7 @@ City.renderHeader = function(){
 
 City.renderFooter = function (){
   var footerRow = document.createElement('tr');
-  // cookieBusiness.appendChild(footerRow);
-  // var totalsRow = document.createElement('tfoot');
-  // footerRow.appendChild(totalsRow);
+
   var totalsNameOnBar = document.createElement('th');
   totalsNameOnBar.textContent = 'Totals';
   footerRow.appendChild(totalsNameOnBar);
@@ -132,7 +132,7 @@ City.renderFooter = function (){
   }
 
   var theLastBox = document.createElement('td');
-  theLastBox.textContent = totalAmountForAllCities[0];
+  theLastBox.textContent = everyOneOfThoseCookies();
   footerRow.appendChild(theLastBox);
 
 
@@ -146,13 +146,31 @@ City.renderAllCities = function() {
     allCities[i].renderRow();
   }
 };
+// event function
+City.addNewCity = function(event) {
+  event.preventDefault();
+  var nextCity = event.target.newStoreName.value;
+  var newMinimumPeople = parseInt(event.target.newMinP.value);
+  var newMaximumPeople = parseInt(event.target.newMaxP.value);
+  var newAverageCookies = parseInt (event.target.newAvgP.value);
+  totalAmountEachHour = [];
+  new City(nextCity, newMinimumPeople, newMaximumPeople, newAverageCookies);
+  cookieBusiness.textContent = '';
+
+  City.renderHeader();
+  City.renderAllCities();
+  eachLocationsTotalCookies();
+  everyOneOfThoseCookies();
+  City.renderFooter();
+};
 
 // city variables
-var pike = new City('1st and Pike',23,65,6.3);
-var seaTac = new City('SeaTac Airport',3,24,1.2);
-var seaC = new City ('Seattle Center',11,38,2.3);
-var capHill = new City ('Capitol Hill',20,38,2.3);
-var alki = new City ('Alki',2,16,4.6);
+var pike = new City('1st and Pike', 23, 65, 6.3);
+var seaTac = new City('SeaTac Airport', 3, 24, 1.2);
+var seaC = new City ('Seattle Center', 11, 38, 2.3);
+var capHill = new City ('Capitol Hill', 20, 38, 2.3);
+var alki = new City ('Alki', 2, 16, 4.6);
+cookieForm.addEventListener('submit', City.addNewCity);
 
 // running functions
 City.renderHeader();
@@ -165,15 +183,13 @@ City.renderFooter();
 
 
 // console logs for each city variable I put in
-// console.log(pike);
-// console.log('-------------------------');
-// console.log(seaTac);
-// console.log('-------------------------');
-// console.log(seaC);
-// console.log('-------------------------');
-// console.log(capHill);
-// console.log('-------------------------');
-// console.log(alki);
-// console.log(allCities);
-// console.log(theCompleteTotal());
-console.log(totalAmountForAllCities);
+console.log(pike);
+console.log('-------------------------');
+console.log(seaTac);
+console.log('-------------------------');
+console.log(seaC);
+console.log('-------------------------');
+console.log(capHill);
+console.log('-------------------------');
+console.log(alki);
+console.log(allCities);
